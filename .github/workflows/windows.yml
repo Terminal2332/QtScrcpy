@@ -95,6 +95,16 @@ jobs:
           publish_name: ${{ env.target-name }}-${{ env.plantform-des }}-${{ matrix.msvc-arch }}-${{ steps.get-version.outputs.version }}
         run: |
           cmd.exe /c ci\win\publish_for_win.bat ${{ matrix.msvc-arch }} ..\build\${{ env.publish_name }}
+          # 下载完整版ffmpeg dll替换精简版(精简版avcodec缺少HEVC解码器,选H.265会黑屏)
+          if (${{ matrix.msvc-arch }} -eq 'x86') {
+            $ffUrl = 'https://github.com/sudo-nautilus/FFmpeg-Builds-Win32/releases/download/autobuild-2022-09-30-12-48/ffmpeg-n4.4.2-95-ga8f16d4eb4-win32-gpl-shared-4.4.zip'
+          } else {
+            $ffUrl = 'https://github.com/GyanD/codexffmpeg/releases/download/4.4.1/ffmpeg-4.4.1-full_build-shared.zip'
+          }
+          Invoke-WebRequest -Uri $ffUrl -OutFile ci\build\ffmpeg_full.zip
+          Expand-Archive -Path ci\build\ffmpeg_full.zip -DestinationPath ci\build\ffmpeg_full -Force
+          $ffDir = Get-ChildItem ci\build\ffmpeg_full -Directory | Select-Object -First 1
+          Copy-Item "$($ffDir.FullName)\bin\avcodec-58.dll","$($ffDir.FullName)\bin\avformat-58.dll","$($ffDir.FullName)\bin\avutil-56.dll","$($ffDir.FullName)\bin\swresample-3.dll","$($ffDir.FullName)\bin\swscale-5.dll" -Destination ci\build\${{ env.publish_name }} -Force
           # 打包zip
           Compress-Archive -Path ci\build\${{ env.publish_name }} ci\build\${{ env.publish_name }}.zip
           echo "::set-output name=package-name::${{ env.publish_name }}"
