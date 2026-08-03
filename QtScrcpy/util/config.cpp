@@ -60,6 +60,9 @@
 #define COMMON_MAX_SIZE_INDEX_KEY "MaxSizeIndex"
 #define COMMON_MAX_SIZE_INDEX_DEF 2
 
+#define COMMON_VIDEO_CODEC_INDEX_KEY "VideoCodecIndex"
+#define COMMON_VIDEO_CODEC_INDEX_DEF 0
+
 #define COMMON_RECORD_FORMAT_INDEX_KEY "RecordFormatIndex"
 #define COMMON_RECORD_FORMAT_INDEX_DEF 0
 
@@ -163,6 +166,7 @@ void Config::setUserBootConfig(const UserBootConfig &config)
     m_userData->setValue(COMMON_RECORD_KEY, config.recordPath);
     m_userData->setValue(COMMON_BITRATE_KEY, config.bitRate);
     m_userData->setValue(COMMON_MAX_SIZE_INDEX_KEY, config.maxSizeIndex);
+    m_userData->setValue(COMMON_VIDEO_CODEC_INDEX_KEY, config.videoCodecIndex);
     m_userData->setValue(COMMON_RECORD_FORMAT_INDEX_KEY, config.recordFormatIndex);
     m_userData->setValue(COMMON_FRAMELESS_WINDOW_KEY, config.framelessWindow);
     m_userData->setValue(COMMON_LOCK_ORIENTATION_INDEX_KEY, config.lockOrientationIndex);
@@ -187,6 +191,7 @@ UserBootConfig Config::getUserBootConfig()
     config.recordPath = m_userData->value(COMMON_RECORD_KEY, COMMON_RECORD_DEF).toString();
     config.bitRate = m_userData->value(COMMON_BITRATE_KEY, COMMON_BITRATE_DEF).toUInt();
     config.maxSizeIndex = m_userData->value(COMMON_MAX_SIZE_INDEX_KEY, COMMON_MAX_SIZE_INDEX_DEF).toInt();
+    config.videoCodecIndex = m_userData->value(COMMON_VIDEO_CODEC_INDEX_KEY, COMMON_VIDEO_CODEC_INDEX_DEF).toInt();
     config.recordFormatIndex = m_userData->value(COMMON_RECORD_FORMAT_INDEX_KEY, COMMON_RECORD_FORMAT_INDEX_DEF).toInt();
     config.lockOrientationIndex = m_userData->value(COMMON_LOCK_ORIENTATION_INDEX_KEY, COMMON_LOCK_ORIENTATION_INDEX_DEF).toInt();
     config.framelessWindow = m_userData->value(COMMON_FRAMELESS_WINDOW_KEY, COMMON_FRAMELESS_WINDOW_DEF).toBool();

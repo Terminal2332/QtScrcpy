@@ -158,6 +158,11 @@ void Dialog::initUI()
     ui->formatBox->addItem("mp4");
     ui->formatBox->addItem("mkv");
 
+    // h265同码率下画质明显好于h264，需手机支持HEVC硬编；av1解码要求较新显卡，暂不提供
+    ui->videoCodecBox->addItem(QStringLiteral("H.264"), QStringLiteral("h264"));
+    ui->videoCodecBox->addItem(QStringLiteral("H.265"), QStringLiteral("h265"));
+    ui->videoCodecBox->setCurrentIndex(0);
+
     ui->lockOrientationBox->addItem(tr("no lock"));
     ui->lockOrientationBox->addItem("0");
     ui->lockOrientationBox->addItem("90");
@@ -192,6 +197,7 @@ void Dialog::updateBootConfig(bool toView)
         }
 
         ui->maxSizeBox->setCurrentIndex(config.maxSizeIndex);
+        ui->videoCodecBox->setCurrentIndex(config.videoCodecIndex);
         ui->formatBox->setCurrentIndex(config.recordFormatIndex);
         ui->recordPathEdt->setText(config.recordPath);
         ui->lockOrientationBox->setCurrentIndex(config.lockOrientationIndex);
@@ -211,6 +217,7 @@ void Dialog::updateBootConfig(bool toView)
 
         config.bitRate = getBitRate();
         config.maxSizeIndex = ui->maxSizeBox->currentIndex();
+        config.videoCodecIndex = ui->videoCodecBox->currentIndex();
         config.recordFormatIndex = ui->formatBox->currentIndex();
         config.recordPath = ui->recordPathEdt->text();
         config.lockOrientationIndex = ui->lockOrientationBox->currentIndex();
@@ -320,6 +327,7 @@ void Dialog::on_startServerBtn_clicked()
     qsc::DeviceParams params;
     params.serial = ui->serialBox->currentText().trimmed();
     params.maxSize = videoSize;
+    params.videoCodec = ui->videoCodecBox->currentData().toString();
     params.bitRate = getBitRate();
     // on devices with Android >= 10, the capture frame rate can be limited
     params.maxFps = static_cast<quint32>(Config::getInstance().getMaxFps());
