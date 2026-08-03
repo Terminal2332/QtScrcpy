@@ -16,10 +16,10 @@ on:
 jobs:
   build:
     name: Build
-    # windows-latest目前是windows server 2022
-    # windows server 2019安装的是vs2019，windows server 2016安装的是vs2017
+    # windows-latest自2025年底迁移到新镜像后不再包含VS2022 Enterprise
+    # windows-2022镜像仍带完整的VS2022 Enterprise，与vsvarsall路径和CMake生成器匹配
     # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
-    runs-on: windows-latest
+    runs-on: windows-2022
 
     # 矩阵配置 https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstrategymatrix
     strategy:
