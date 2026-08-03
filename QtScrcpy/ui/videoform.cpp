@@ -742,6 +742,20 @@ void VideoForm::keyReleaseEvent(QKeyEvent *event)
     emit device->keyEvent(event, m_videoWidget->frameSize(), m_videoWidget->size());
 }
 
+void VideoForm::changeEvent(QEvent *event)
+{
+    // window lost focus (Alt+Tab, click another window, minimize, etc.)
+    // release all pending key/touch states, otherwise the phone will keep
+    // receiving moves/presses that were never released (e.g. steer wheel)
+    if (event->type() == QEvent::WindowDeactivate) {
+        auto device = qsc::IDeviceManage::getInstance().getDevice(m_serial);
+        if (device) {
+            device->resetInput();
+        }
+    }
+    QWidget::changeEvent(event);
+}
+
 void VideoForm::paintEvent(QPaintEvent *paint)
 {
     Q_UNUSED(paint)
