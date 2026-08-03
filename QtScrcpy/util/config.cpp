@@ -27,7 +27,7 @@
 #define COMMON_SERVER_PATH_DEF "/data/local/tmp/scrcpy-server.jar"
 
 #define COMMON_MAX_FPS_KEY "MaxFps"
-#define COMMON_MAX_FPS_DEF 0
+#define COMMON_MAX_FPS_DEF 90
 
 #define COMMON_DESKTOP_OPENGL_KEY "UseDesktopOpenGL"
 #define COMMON_DESKTOP_OPENGL_DEF -1
@@ -55,7 +55,7 @@
 #define COMMON_RECORD_DEF ""
 
 #define COMMON_BITRATE_KEY "BitRate"
-#define COMMON_BITRATE_DEF 2000000
+#define COMMON_BITRATE_DEF 40000000
 
 #define COMMON_MAX_SIZE_INDEX_KEY "MaxSizeIndex"
 #define COMMON_MAX_SIZE_INDEX_DEF 2
