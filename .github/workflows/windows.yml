@@ -96,7 +96,7 @@ jobs:
         run: |
           cmd.exe /c ci\win\publish_for_win.bat ${{ matrix.msvc-arch }} ..\build\${{ env.publish_name }}
           # 下载完整版ffmpeg dll替换精简版(精简版avcodec缺少HEVC解码器,选H.265会黑屏)
-          if (${{ matrix.msvc-arch }} -eq 'x86') {
+          if ('${{ matrix.msvc-arch }}' -eq 'x86') {
             $ffUrl = 'https://github.com/sudo-nautilus/FFmpeg-Builds-Win32/releases/download/autobuild-2022-09-30-12-48/ffmpeg-n4.4.2-95-ga8f16d4eb4-win32-gpl-shared-4.4.zip'
           } else {
             $ffUrl = 'https://github.com/GyanD/codexffmpeg/releases/download/4.4.1/ffmpeg-4.4.1-full_build-shared.zip'
