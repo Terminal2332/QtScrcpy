@@ -463,11 +463,6 @@ void VideoForm::updateShowSize(const QSize &newSize)
 void VideoForm::switchFullScreen()
 {
     if (isFullScreen()) {
-        // 横屏全屏铺满全屏，恢复时，恢复保持宽高比
-        if (m_widthHeightRatio > 1.0f) {
-            ui->keepRatioWidget->setWidthHeightRatio(m_widthHeightRatio);
-        }
-
         showNormal();
         // back to normal size.
         resize(m_normalSize);
@@ -486,11 +481,7 @@ void VideoForm::switchFullScreen()
         ::SetThreadExecutionState(ES_CONTINUOUS);
 #endif
     } else {
-        // 横屏全屏铺满全屏，不保持宽高比
-        if (m_widthHeightRatio > 1.0f) {
-            ui->keepRatioWidget->setWidthHeightRatio(-1.0f);
-        }
-
+        // 全屏保持宽高比(黑边显示)，避免画面拉伸变形
         // record current size before fullscreen, it will be used to rollback size after exit fullscreen.
         m_normalSize = size();
 
