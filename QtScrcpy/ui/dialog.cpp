@@ -347,6 +347,7 @@ void Dialog::on_startServerBtn_clicked()
     params.serverRemotePath = Config::getInstance().getServerPath();
     params.pushFilePath = Config::getInstance().getPushFilePath();
     params.gameScript = getGameScript(ui->gameBox->currentText());
+    params.uhidKeyboard = (Config::getInstance().getKeyboardMode() == "uhid");
     params.serverVersion = Config::getInstance().getServerVersion();
     params.logLevel = Config::getInstance().getLogLevel();
     params.codecOptions = Config::getInstance().getCodecOptions();

@@ -44,6 +44,9 @@
 #define COMMON_LOG_LEVEL_KEY "LogLevel"
 #define COMMON_LOG_LEVEL_DEF "info"
 
+#define COMMON_KEYBOARD_MODE_KEY "KeyboardMode"
+#define COMMON_KEYBOARD_MODE_DEF "sdk"
+
 #define COMMON_CODEC_OPTIONS_KEY "CodecOptions"
 #define COMMON_CODEC_OPTIONS_DEF ""
 
@@ -347,6 +350,15 @@ QString Config::getLogLevel()
     logLevel = m_settings->value(COMMON_LOG_LEVEL_KEY, COMMON_LOG_LEVEL_DEF).toString();
     m_settings->endGroup();
     return logLevel;
+}
+
+QString Config::getKeyboardMode()
+{
+    QString keyboardMode;
+    m_settings->beginGroup(GROUP_COMMON);
+    keyboardMode = m_settings->value(COMMON_KEYBOARD_MODE_KEY, COMMON_KEYBOARD_MODE_DEF).toString().trimmed().toLower();
+    m_settings->endGroup();
+    return keyboardMode;
 }
 
 QString Config::getCodecOptions()

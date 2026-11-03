@@ -46,6 +46,7 @@ public:
     QString getServerPath();
     QString getAdbPath();
     QString getLogLevel();
+    QString getKeyboardMode();
     QString getCodecOptions();
     QString getCodecName();
     QStringList getConnectedGroups();
